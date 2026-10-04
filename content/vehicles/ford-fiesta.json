@@ -12,6 +12,8 @@
   "kmMonth": 1500,
   "available": true,
   "order": 5,
-  "photos": [],
+  "photos": [
+    "/photos/ford-fiesta-ancien-site.png"
+  ],
   "description": ""
 }

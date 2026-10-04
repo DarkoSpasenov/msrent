@@ -12,6 +12,8 @@
   "kmMonth": 1500,
   "available": true,
   "order": 4,
-  "photos": [],
+  "photos": [
+    "/photos/daihatsu-cuore-ancien-site.png"
+  ],
   "description": ""
 }

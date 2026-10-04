@@ -12,6 +12,8 @@
   "kmMonth": 1500,
   "available": true,
   "order": 3,
-  "photos": [],
+  "photos": [
+    "/photos/peugeot-107-ancien-site.png"
+  ],
   "description": ""
 }

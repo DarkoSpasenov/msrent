@@ -12,6 +12,8 @@
   "kmMonth": 1500,
   "available": true,
   "order": 2,
-  "photos": [],
+  "photos": [
+    "/photos/citroen-c1-ancien-site.png"
+  ],
   "description": ""
 }

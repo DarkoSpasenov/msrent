@@ -12,6 +12,8 @@
   "kmMonth": 1500,
   "available": true,
   "order": 1,
-  "photos": [],
+  "photos": [
+    "/photos/ford-ka-ancien-site.png"
+  ],
   "description": ""
 }
