@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #f6f6f3;
+  --color-surface: #ffffff;
+  --color-ink: #0c0e12;
+  --color-ink-2: #1b1f27;
+  --color-muted: #5d6470;
+  --color-line: #e3e4e0;
+  --color-mist: #eceeea;
+  --color-signal: #d42a20;
+  --color-wa: #128c4a;
+  --color-wa-dark: #0e7a3f;
+  --color-wa-soft: #e7f5ec;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(12 14 18 / 0.04), 0 8px 24px -12px rgb(12 14 18 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(12 14 18 / 0.05), 0 18px 40px -18px rgb(12 14 18 / 0.28);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  input[type="date"] {
+    min-height: 3rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility btn {
+  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-colors duration-150 select-none disabled:cursor-not-allowed;
+}
+
+@utility btn-wa {
+  @apply btn bg-wa text-white hover:bg-wa-dark;
+}
+
+@utility btn-dark {
+  @apply btn bg-ink text-white hover:bg-ink-2;
+}
+
+@utility btn-light {
+  @apply btn bg-white text-ink hover:bg-mist;
+}
+
+@utility btn-outline {
+  @apply btn border border-ink/15 bg-transparent text-ink hover:border-ink/40;
+}
+
+@utility btn-ghost-light {
+  @apply btn border border-white/25 text-white hover:bg-white/10;
+}
+
+@utility eyebrow {
+  @apply text-xs font-semibold tracking-[0.18em] text-muted uppercase;
+}
+
+@utility field {
+  @apply block w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-ink focus:ring-0 focus:outline-none;
+}
+
+@utility label {
+  @apply mb-1.5 block text-sm font-medium text-ink;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
