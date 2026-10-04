@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import { OG_IMAGE, SITE } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap", weight: ["600", "700", "800"] });
+const body = Manrope({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", display: "swap", weight: ["600", "700", "800"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -21,14 +21,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0e12",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr-CH" className={`${inter.variable} ${archivo.variable}`}>
+    <html lang="fr-CH" className={`${body.variable} ${display.variable}`}>
       <body>{children}</body>
     </html>
   );

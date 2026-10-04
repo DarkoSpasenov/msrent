@@ -22,7 +22,7 @@ export function VehiclePhoto({
 }) {
   if (!photo) {
     return (
-      <div className={`grid place-items-center bg-mist text-muted/60 ${className}`} role="img" aria-label={`${alt} (photo à venir)`}>
+      <div className={`grid place-items-center text-ink/25 ${className}`} role="img" aria-label={`${alt} (photo à venir)`}>
         <CarIcon width={56} height={56} strokeWidth={1.2} />
       </div>
     );
@@ -38,7 +38,7 @@ export function VehiclePhoto({
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}
       decoding="async"
-      className={`${photo.transparent ? "object-contain p-[8%]" : "object-cover"} ${className}`}
+      className={`${photo.transparent ? "object-contain p-[7%]" : "object-cover"} ${className}`}
     />
   );
 }

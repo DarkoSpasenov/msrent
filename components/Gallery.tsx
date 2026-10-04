@@ -7,7 +7,7 @@ import { photoSrc } from "@/lib/photo";
 
 type PhotoLike = { id: number; file: string; width: number; height: number; transparent: boolean };
 
-export function Gallery({ photos, name, dimmed = false }: { photos: PhotoLike[]; name: string; dimmed?: boolean }) {
+export function Gallery({ photos, name, tone, dimmed = false }: { photos: PhotoLike[]; name: string; tone: string; dimmed?: boolean }) {
   const track = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
 
@@ -25,7 +25,7 @@ export function Gallery({ photos, name, dimmed = false }: { photos: PhotoLike[];
 
   if (photos.length <= 1) {
     return (
-      <div className="overflow-hidden rounded-[var(--radius-card)] bg-mist">
+      <div className={`overflow-hidden rounded-[32px] ${tone}`}>
         <VehiclePhoto photo={photos[0]} alt={name} sizes="(min-width: 1024px) 640px, 100vw" priority className={`aspect-[4/3] w-full ${dimmed ? "opacity-60 grayscale" : ""}`} />
       </div>
     );
@@ -33,7 +33,7 @@ export function Gallery({ photos, name, dimmed = false }: { photos: PhotoLike[];
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-[var(--radius-card)] bg-mist">
+      <div className={`relative overflow-hidden rounded-[32px] ${tone}`}>
         <div
           ref={track}
           onScroll={onScroll}
@@ -59,14 +59,14 @@ export function Gallery({ photos, name, dimmed = false }: { photos: PhotoLike[];
           ))}
         </div>
 
-        <span className="absolute right-3 bottom-3 rounded-full bg-ink/75 px-2.5 py-1 text-xs font-medium text-white tabular-nums">
+        <span className="absolute right-3 bottom-3 rounded-full bg-ink px-3 py-1 text-xs font-bold text-white tabular-nums">
           {index + 1} / {photos.length}
         </span>
         <button
           type="button"
           onClick={() => go(index - 1)}
           disabled={index === 0}
-          className="absolute top-1/2 left-3 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 shadow-card transition-opacity disabled:opacity-0 sm:grid"
+          className="absolute top-1/2 left-3 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white shadow-soft transition-opacity disabled:opacity-0 sm:grid"
           aria-label="Photo précédente"
         >
           <ChevronLeftIcon />
@@ -75,7 +75,7 @@ export function Gallery({ photos, name, dimmed = false }: { photos: PhotoLike[];
           type="button"
           onClick={() => go(index + 1)}
           disabled={index === photos.length - 1}
-          className="absolute top-1/2 right-3 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 shadow-card transition-opacity disabled:opacity-0 sm:grid"
+          className="absolute top-1/2 right-3 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white shadow-soft transition-opacity disabled:opacity-0 sm:grid"
           aria-label="Photo suivante"
         >
           <ChevronRightIcon />
@@ -94,7 +94,7 @@ export function Gallery({ photos, name, dimmed = false }: { photos: PhotoLike[];
             <button
               type="button"
               onClick={() => go(i)}
-              className={`block aspect-[4/3] w-full overflow-hidden rounded-xl border-2 bg-mist transition-colors ${i === index ? "border-ink" : "border-transparent hover:border-ink/30"}`}
+              className={`block aspect-[4/3] w-full overflow-hidden rounded-2xl border-2 ${tone} transition-colors ${i === index ? "border-ink" : "border-transparent hover:border-ink/30"}`}
               aria-label={`Afficher la photo ${i + 1}`}
               aria-current={i === index}
             >

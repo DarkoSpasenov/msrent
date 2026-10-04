@@ -9,15 +9,13 @@ export function ContactBar({ whatsappHref, telHref }: { whatsappHref: string; te
   const onVehiclePage = /^\/voitures\/[^/]+/.test(usePathname());
   return (
     <>
-      <div className={`${onVehiclePage ? "hidden" : ""} fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden`}>
-        <div className="grid grid-cols-[1fr_2fr] gap-2">
-          <a href={telHref} className="btn-outline min-h-12 px-3">
-            <PhoneIcon width={18} height={18} />
-            Appeler
+      <div className={`${onVehiclePage ? "hidden" : ""} fixed inset-x-0 bottom-0 z-30 bg-white/95 px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-8px_24px_-12px_rgb(10_15_31/0.2)] backdrop-blur md:hidden`}>
+        <div className="flex gap-2">
+          <a href={telHref} className="btn-outline min-h-13 w-14 shrink-0 px-0" aria-label="Appeler MS Rent">
+            <PhoneIcon />
           </a>
-          <a href={whatsappHref} target="_blank" rel="noopener" className="btn-wa min-h-12 px-3">
-            <WhatsAppIcon />
-            Réserver sur WhatsApp
+          <a href={whatsappHref} target="_blank" rel="noopener" className="btn-wa min-h-13 flex-1 text-base">
+            <WhatsAppIcon /> Réserver sur WhatsApp
           </a>
         </div>
       </div>
@@ -26,10 +24,9 @@ export function ContactBar({ whatsappHref, telHref }: { whatsappHref: string; te
         target="_blank"
         rel="noopener"
         aria-label="Réserver sur WhatsApp"
-        className="fixed right-6 bottom-6 z-30 hidden h-14 items-center gap-2 rounded-full bg-wa pr-5 pl-4 font-semibold text-white shadow-lift transition-transform hover:-translate-y-0.5 hover:bg-wa-dark md:inline-flex"
+        className="fixed right-6 bottom-6 z-30 hidden h-16 w-16 place-items-center rounded-full bg-wa text-ink shadow-float transition-transform hover:scale-105 md:grid"
       >
-        <WhatsAppIcon width={24} height={24} />
-        WhatsApp
+        <WhatsAppIcon width={30} height={30} />
       </a>
     </>
   );

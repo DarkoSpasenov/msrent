@@ -24,13 +24,13 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
 
   if (!available) {
     return (
-      <div id="reserver" className="rounded-[var(--radius-card)] border border-line bg-surface p-5 sm:p-6">
-        <p className="font-display text-lg font-bold">Actuellement indisponible</p>
+      <div id="reserver" className="rounded-[28px] bg-brand-soft p-5 sm:p-7">
+        <p className="font-display text-xl font-extrabold">Actuellement indisponible</p>
         <p className="mt-1.5 text-muted">Cette voiture n&apos;est pas disponible pour le moment. Découvrez nos autres véhicules.</p>
-        <button type="button" disabled className="btn mt-5 w-full bg-mist text-muted">
+        <button type="button" disabled className="btn mt-5 w-full bg-white text-muted">
           Réservation désactivée
         </button>
-        <Link href="/voitures" className="btn-dark mt-2 w-full">
+        <Link href="/voitures/" className="btn-ink mt-2 w-full">
           Voir les autres voitures
         </Link>
       </div>
@@ -40,13 +40,13 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
   return (
     <form
       id="reserver"
-      className="rounded-[var(--radius-card)] border border-line bg-surface p-5 sm:p-6"
+      className="rounded-[28px] bg-brand-soft p-5 sm:p-7"
       onSubmit={(e) => {
         e.preventDefault();
         if (!invalid) window.open(href, "_blank", "noopener");
       }}
     >
-      <h2 className="text-xl font-bold">Demander la disponibilité</h2>
+      <h2 className="text-2xl font-extrabold">Demander la disponibilité</h2>
       <p className="mt-1 text-sm text-muted">Le message WhatsApp est rédigé pour vous : il ne reste qu&apos;à l&apos;envoyer.</p>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
@@ -74,7 +74,7 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
         </div>
       </div>
       {invalid ? (
-        <p className="mt-2 text-sm font-medium text-signal" role="alert">
+        <p className="mt-2 text-sm font-medium text-alert" role="alert">
           La date de retour doit être après la date de départ.
         </p>
       ) : (

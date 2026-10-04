@@ -6,23 +6,28 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section id="comment-ca-marche" className="border-y border-line bg-surface py-16 sm:py-24" aria-labelledby="titre-etapes">
+    <section id="comment-ca-marche" className="py-20 sm:py-28" aria-labelledby="titre-etapes">
       <div className="container-x">
-        <p className="eyebrow">Comment ça marche</p>
-        <h2 id="titre-etapes" className="mt-3 max-w-xl text-3xl font-bold sm:text-4xl">
-          Réservez en trois étapes, sans compte ni paiement en ligne.
-        </h2>
-        <ol className="mt-10 grid gap-4 sm:mt-14 md:grid-cols-3 md:gap-6">
+        <div className="max-w-2xl">
+          <span className="kicker">Comment ça marche</span>
+          <h2 id="titre-etapes" className="mt-4 text-4xl font-extrabold sm:text-5xl">
+            Trois étapes. Pas de compte, pas de paiement en ligne.
+          </h2>
+        </div>
+        <ol className="relative mt-12 grid gap-8 md:grid-cols-3 md:gap-10">
+          <span className="absolute top-7 right-[16%] left-[16%] hidden border-t-2 border-dashed border-line md:block" aria-hidden="true" />
           {STEPS.map((s, i) => (
-            <li key={s.title} className="relative rounded-[var(--radius-card)] border border-line bg-paper p-6 sm:p-7">
-              <span className="font-display text-5xl font-extrabold text-ink/10" aria-hidden="true">
-                0{i + 1}
+            <li key={s.title} className="relative flex gap-5 md:flex-col md:items-center md:text-center">
+              <span className="relative grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-ink font-display text-2xl font-extrabold text-brand">
+                {i + 1}
               </span>
-              <h3 className="mt-4 text-xl font-bold">
-                <span className="sr-only">Étape {i + 1} : </span>
-                {s.title}
-              </h3>
-              <p className="mt-2 leading-relaxed text-muted">{s.text}</p>
+              <div>
+                <h3 className="text-xl font-extrabold md:mt-2">
+                  <span className="sr-only">Étape {i + 1} : </span>
+                  {s.title}
+                </h3>
+                <p className="mt-1.5 max-w-xs leading-relaxed text-muted">{s.text}</p>
+              </div>
             </li>
           ))}
         </ol>
