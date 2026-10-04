@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Inter } from "next/font/google";
-import { SITE } from "@/lib/site";
+import { OG_IMAGE, SITE } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Location de voitures à Yverdon-les-Bains dès 30 CHF par jour, kilomètres inclus. À la journée, à la semaine ou au mois. Réservation rapide par WhatsApp.",
   applicationName: "MS Rent",
-  openGraph: { type: "website", locale: "fr_CH", siteName: "MS Rent" },
+  openGraph: { type: "website", locale: "fr_CH", siteName: "MS Rent", images: [OG_IMAGE] },
   twitter: { card: "summary_large_image" },
   formatDetection: { telephone: false },
 };

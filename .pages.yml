@@ -1,0 +1,120 @@
+# Administration du site avec Pages CMS (https://app.pagescms.org).
+# Chaque enregistrement crée un commit ; GitHub Actions remet le site en ligne automatiquement.
+
+media:
+  input: public/photos
+  output: /photos
+  rename: random
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: vehicules
+    label: Véhicules
+    type: collection
+    path: content/vehicles
+    format: json
+    filename: "{brand}-{model}.json"
+    view:
+      primary: model
+      fields: [brand, model, priceDay, available]
+      sort: [order, brand]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: brand
+        label: Marque
+        type: string
+        required: true
+      - name: model
+        label: Modèle
+        type: string
+        required: true
+      - name: photos
+        label: Photos
+        description: "La première photo est la photo principale. Glissez les photos pour changer l'ordre. Elles sont optimisées automatiquement."
+        type: image
+        list: true
+      - name: transmission
+        label: Transmission
+        type: select
+        required: true
+        default: manual
+        options:
+          values:
+            - name: manual
+              label: Manuelle
+            - name: automatic
+              label: Automatique
+      - name: seats
+        label: Nombre de places
+        type: number
+        required: true
+        options: { min: 1, max: 9 }
+      - name: doors
+        label: Nombre de portes
+        type: number
+        required: true
+        options: { min: 2, max: 5 }
+      - name: priceDay
+        label: Prix / jour (CHF)
+        type: number
+        required: true
+        options: { min: 0 }
+      - name: kmDay
+        label: Kilomètres inclus / jour
+        type: number
+        options: { min: 0 }
+      - name: priceWeek
+        label: Prix / semaine (CHF)
+        type: number
+        options: { min: 0 }
+      - name: kmWeek
+        label: Kilomètres inclus / semaine
+        type: number
+        options: { min: 0 }
+      - name: priceMonth
+        label: Prix / mois (CHF)
+        type: number
+        options: { min: 0 }
+      - name: kmMonth
+        label: Kilomètres inclus / mois
+        type: number
+        options: { min: 0 }
+      - name: description
+        label: Description (facultative)
+        type: text
+      - name: available
+        label: Disponible
+        description: "Désactivé : la voiture reste visible avec « Actuellement indisponible » et la réservation est bloquée."
+        type: boolean
+        default: true
+      - name: order
+        label: Ordre d'affichage
+        description: "1 = affichée en premier."
+        type: number
+
+  - name: site
+    label: Coordonnées et accueil
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: whatsapp
+        label: Numéro WhatsApp
+        description: "Ex. 076 465 14 12 (converti automatiquement au format +41)."
+        type: string
+        required: true
+      - name: phone
+        label: Téléphone affiché
+        type: string
+      - name: email
+        label: E-mail
+        type: string
+      - name: instagram
+        label: Instagram (sans @)
+        type: string
+      - name: heroImage
+        label: Image d'accueil (facultative)
+        description: "Grande photo de fond de l'accueil. Sans image, l'accueil affiche la photo principale de la première voiture disponible."
+        type: image

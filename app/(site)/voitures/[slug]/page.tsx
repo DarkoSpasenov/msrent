@@ -9,12 +9,17 @@ import { ChevronLeftIcon, DoorIcon, GearboxIcon, SeatIcon, WhatsAppIcon } from "
 import { formatChf, formatKm, transmissionLabel } from "@/components/specs";
 import { photoSrc } from "@/lib/photo";
 import { getSettings } from "@/lib/settings";
+import { OG_IMAGE, SITE } from "@/lib/site";
 import { getVehicleBySlug, listVehicles, vehicleName } from "@/lib/vehicles";
 import { bookingMessage, whatsappUrl } from "@/lib/whatsapp";
 
-export const dynamic = "force-dynamic";
-
 type Props = { params: Promise<{ slug: string }> };
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return listVehicles().map((v) => ({ slug: v.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const v = getVehicleBySlug((await params).slug);
@@ -25,11 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Location ${name} à Yverdon-les-Bains${price}`,
     description: `Louez la ${name} à Yverdon-les-Bains${price}${km}. Boîte ${transmissionLabel(v.transmission).toLowerCase()}, ${v.seats} places, ${v.doors} portes. Réservation rapide par WhatsApp.`,
-    alternates: { canonical: `/voitures/${v.slug}` },
+    alternates: { canonical: `/voitures/${v.slug}/` },
     openGraph: {
-      url: `/voitures/${v.slug}`,
+      url: `/voitures/${v.slug}/`,
       title: `Location ${name} | MS Rent Yverdon-les-Bains`,
-      ...(v.photos[0] && { images: [{ url: photoSrc(v.photos[0].file, 1600), width: v.photos[0].width, height: v.photos[0].height, alt: name }] }),
+      images: v.photos[0]
+        ? [{ url: `${SITE.origin}${photoSrc(v.photos[0].file, 1600)}`, width: v.photos[0].width, height: v.photos[0].height, alt: name }]
+        : [OG_IMAGE],
     },
   };
 }

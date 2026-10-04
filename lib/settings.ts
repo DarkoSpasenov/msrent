@@ -1,37 +1,36 @@
 import "server-only";
-import { getDb } from "@/lib/db";
+import fs from "node:fs";
+import path from "node:path";
+import { imageManifest } from "@/lib/vehicles";
 
 export type SiteSettings = {
   whatsapp: string; // international format without "+", e.g. 41764651412
   phone: string; // as displayed, e.g. 076 465 14 12
   email: string;
   instagram: string; // handle without "@"
-  heroImage: string | null; // uploaded file base name
+  heroImage: string | null; // optimized image base name
 };
 
+function whatsappDigits(raw: string): string {
+  let d = raw.replace(/\D/g, "");
+  if (d.startsWith("00")) d = d.slice(2);
+  if (d.startsWith("0")) d = `41${d.slice(1)}`;
+  return d;
+}
+
 export function getSettings(): SiteSettings {
-  const rows = getDb().prepare("SELECT key, value FROM settings").all() as { key: string; value: string }[];
-  const map = new Map(rows.map((r) => [r.key, r.value]));
+  const d = JSON.parse(fs.readFileSync(path.join(process.cwd(), "content", "site.json"), "utf8"));
+  const hero = typeof d.heroImage === "string" && d.heroImage ? imageManifest()[d.heroImage.startsWith("/") ? d.heroImage : `/${d.heroImage}`] : undefined;
   return {
-    whatsapp: map.get("whatsapp") ?? "",
-    phone: map.get("phone") ?? "",
-    email: map.get("email") ?? "",
-    instagram: map.get("instagram") ?? "",
-    heroImage: map.get("hero_image") ?? null,
+    whatsapp: whatsappDigits(String(d.whatsapp ?? "")),
+    phone: String(d.phone ?? "").trim(),
+    email: String(d.email ?? "").trim(),
+    instagram: String(d.instagram ?? "").trim().replace(/^@/, ""),
+    heroImage: hero?.file ?? null,
   };
 }
 
-export function getSetting(key: string): string | null {
-  const row = getDb().prepare("SELECT value FROM settings WHERE key = ?").get(key) as { value: string } | undefined;
-  return row?.value ?? null;
-}
-
-export function setSetting(key: string, value: string | null) {
-  if (value === null) getDb().prepare("DELETE FROM settings WHERE key = ?").run(key);
-  else getDb().prepare("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(key, value);
-}
-
-/** "+41 76 465 14 12" style for tel: links, from the displayed Swiss number. */
+/** tel: link in international format from the displayed Swiss number. */
 export function telHref(phone: string): string {
   const digits = phone.replace(/[^\d+]/g, "");
   if (digits.startsWith("+")) return `tel:${digits}`;

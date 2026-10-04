@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
 import { getSettings } from "@/lib/settings";
 
-export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Politique de confidentialité", alternates: { canonical: "/confidentialite" } };
+export const metadata: Metadata = { title: "Politique de confidentialité", alternates: { canonical: "/confidentialite/" } };
 
 export default function Page() {
   const s = getSettings();

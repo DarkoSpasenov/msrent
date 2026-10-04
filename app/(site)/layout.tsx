@@ -5,8 +5,6 @@ import { getSettings, telHref } from "@/lib/settings";
 import { listVehicles, vehicleName } from "@/lib/vehicles";
 import { bookingMessage, whatsappUrl } from "@/lib/whatsapp";
 
-export const dynamic = "force-dynamic";
-
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const settings = getSettings();
   const cars = listVehicles().map((v) => ({ slug: v.slug, name: vehicleName(v) }));

@@ -3,8 +3,7 @@ import { LegalPage } from "@/components/LegalPage";
 import { getSettings, telHref } from "@/lib/settings";
 import { SITE } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Mentions légales", alternates: { canonical: "/mentions-legales" } };
+export const metadata: Metadata = { title: "Mentions légales", alternates: { canonical: "/mentions-legales/" } };
 
 export default function Page() {
   const s = getSettings();

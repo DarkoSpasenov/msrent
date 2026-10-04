@@ -1,0 +1,17 @@
+{
+  "brand": "Peugeot",
+  "model": "107",
+  "transmission": "manual",
+  "seats": 4,
+  "doors": 5,
+  "priceDay": 30,
+  "kmDay": 100,
+  "priceWeek": 150,
+  "kmWeek": 400,
+  "priceMonth": 450,
+  "kmMonth": 1500,
+  "available": true,
+  "order": 3,
+  "photos": [],
+  "description": ""
+}

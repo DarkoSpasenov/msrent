@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import { VehicleCard } from "@/components/VehicleCard";
 import { getSettings } from "@/lib/settings";
+import { OG_IMAGE } from "@/lib/site";
 import { listVehicles } from "@/lib/vehicles";
-
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Nos voitures de location à Yverdon-les-Bains",
   description:
     "Toutes nos voitures de location à Yverdon-les-Bains : Ford, Citroën, Peugeot, Daihatsu. Prix par jour, semaine ou mois avec kilomètres inclus. Réservation par WhatsApp.",
-  alternates: { canonical: "/voitures" },
-  openGraph: { url: "/voitures" },
+  alternates: { canonical: "/voitures/" },
+  openGraph: { url: "/voitures/", images: [OG_IMAGE] },
 };
 
 export default function VehiclesPage() {

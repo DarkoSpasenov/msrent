@@ -8,10 +8,9 @@ import { ArrowRightIcon, BoltIcon, CalendarIcon, ShieldIcon, TagIcon, WhatsAppIc
 import { JsonLd, businessJsonLd } from "@/components/JsonLd";
 import { photoSrc, photoSrcSet } from "@/lib/photo";
 import { getSettings } from "@/lib/settings";
+import { OG_IMAGE } from "@/lib/site";
 import { listVehicles, vehicleName } from "@/lib/vehicles";
 import { bookingMessage, whatsappUrl } from "@/lib/whatsapp";
-
-export const dynamic = "force-dynamic";
 
 export function generateMetadata(): Metadata {
   const prices = listVehicles()
@@ -19,7 +18,7 @@ export function generateMetadata(): Metadata {
     .map((v) => v.priceDay!);
   const from = prices.length ? ` dès ${Math.min(...prices)} CHF par jour` : "";
   const description = `Location de voitures à Yverdon-les-Bains${from}, kilomètres inclus. À la journée, à la semaine ou au mois. Réservation rapide par WhatsApp.`;
-  return { description, alternates: { canonical: "/" }, openGraph: { url: "/", description } };
+  return { description, alternates: { canonical: "/" }, openGraph: { url: "/", description, images: [OG_IMAGE] } };
 }
 
 const QUICK = [

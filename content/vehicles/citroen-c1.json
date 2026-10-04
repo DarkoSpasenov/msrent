@@ -1,0 +1,17 @@
+{
+  "brand": "Citroën",
+  "model": "C1",
+  "transmission": "manual",
+  "seats": 4,
+  "doors": 3,
+  "priceDay": 30,
+  "kmDay": 100,
+  "priceWeek": 150,
+  "kmWeek": 400,
+  "priceMonth": 450,
+  "kmMonth": 1500,
+  "available": true,
+  "order": 2,
+  "photos": [],
+  "description": ""
+}

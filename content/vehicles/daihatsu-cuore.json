@@ -1,0 +1,17 @@
+{
+  "brand": "Daihatsu",
+  "model": "Cuore",
+  "transmission": "automatic",
+  "seats": 5,
+  "doors": 5,
+  "priceDay": 45,
+  "kmDay": 100,
+  "priceWeek": 225,
+  "kmWeek": 400,
+  "priceMonth": 675,
+  "kmMonth": 1500,
+  "available": true,
+  "order": 4,
+  "photos": [],
+  "description": ""
+}
