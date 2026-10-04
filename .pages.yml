@@ -32,7 +32,7 @@ content:
         required: true
       - name: photos
         label: Photos
-        description: "La première photo est la photo principale. Glissez les photos pour changer l'ordre. Elles sont optimisées automatiquement."
+        description: "La première photo est la photo principale. Glissez les photos pour changer l'ordre. Conseil : photo en haute qualité (au moins 1500 px de large). Une voiture détourée en PNG reçoit automatiquement une ombre au sol."
         type: image
         list: true
       - name: transmission

@@ -86,7 +86,7 @@ export default function HomePage() {
                     alt={vehicleName(featured)}
                     sizes="(min-width: 1024px) 600px, 100vw"
                     priority
-                    className={`aspect-[16/10] w-full ${featured.photos[0].transparent ? "!p-0 drop-shadow-[0_30px_30px_rgb(17_18_20/0.25)]" : "rounded-[28px]"}`}
+                    className={`aspect-[16/10] w-full ${featured.photos[0].transparent ? "!p-0" : "rounded-[28px]"}`}
                   />
                 </Link>
               )
