@@ -38,7 +38,7 @@ export function VehiclePhoto({
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}
       decoding="async"
-      className={`${photo.transparent ? "object-contain p-[6%]" : "object-cover"} ${className}`}
+      className={`${photo.transparent ? "object-contain p-[8%]" : "object-cover"} ${className}`}
     />
   );
 }

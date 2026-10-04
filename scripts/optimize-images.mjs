@@ -15,14 +15,15 @@ const files = fs.existsSync(SRC) ? fs.readdirSync(SRC).filter((f) => /\.(jpe?g|p
 
 for (const name of files) {
   const input = fs.readFileSync(path.join(SRC, name));
-  const hash = crypto.createHash("sha1").update(input).digest("hex").slice(0, 10);
+  const hash = crypto.createHash("sha1").update("v2").update(input).digest("hex").slice(0, 10);
   const base = `${path.parse(name).name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "photo"}-${hash}`;
   try {
-    const img = sharp(input, { failOn: "error" }).rotate();
+    let img = sharp(input, { failOn: "error" }).rotate();
     const meta = await img.metadata();
-    let { width, height } = meta;
-    if (meta.orientation && meta.orientation >= 5) [width, height] = [height, width];
     const transparent = !!meta.hasAlpha && !(await img.clone().stats()).isOpaque;
+    // Cut-out car photos often have wide empty margins: crop them so the car fills its frame.
+    if (transparent) img = sharp(await img.trim({ threshold: 5 }).png().toBuffer());
+    const { width, height } = await img.clone().toBuffer({ resolveWithObject: true }).then((r) => r.info);
     for (const w of WIDTHS) {
       const out = path.join(OUT, `${base}-${w}.webp`);
       if (!fs.existsSync(out)) await img.clone().resize({ width: w, withoutEnlargement: true }).webp({ quality: 80, alphaQuality: 90 }).toFile(out);
