@@ -1,12 +1,12 @@
-/** MS Rent wordmark: "MS" in the brand turquoise on a black tile, followed by "Rent". */
+import { CarMark } from "@/components/CarMark";
+
+/** MS Rent logo: the car from the original logo, redrawn as a sharp vector, with the name. */
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <span className="inline-flex items-center gap-2" aria-label="MS Rent">
-      <span className="grid h-9 place-items-center rounded-[11px] bg-ink px-2 font-display text-[18px] leading-none font-extrabold tracking-[-0.02em] text-brand" aria-hidden="true">
-        MS
-      </span>
-      <span className={`${compact ? "hidden sm:inline" : ""} font-display text-[24px] leading-none font-extrabold tracking-[-0.03em] text-ink`} aria-hidden="true">
-        Rent
+    <span className="inline-flex items-center gap-3" aria-label="MS Rent">
+      <CarMark className="h-9 w-auto text-ink" />
+      <span className={`${compact ? "hidden sm:block" : "block"} font-display text-[22px] leading-none font-extrabold tracking-[0.04em] whitespace-nowrap text-ink`} aria-hidden="true">
+        MS <span className="text-brand-ink">RENT</span>
       </span>
     </span>
   );

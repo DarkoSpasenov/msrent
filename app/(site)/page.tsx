@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CarSlider } from "@/components/CarSlider";
 import { Contact } from "@/components/Contact";
 import { HowItWorks } from "@/components/HowItWorks";
 import { JsonLd, businessJsonLd } from "@/components/JsonLd";
@@ -86,22 +87,22 @@ export default function HomePage() {
 
       {/* Vehicles */}
       <section id="voitures" className="pt-16 pb-6 sm:pt-24" aria-labelledby="titre-voitures">
-        <div className="container-x">
-          <h2 id="titre-voitures" className="text-4xl font-extrabold sm:text-5xl">
-            Nos voitures
-          </h2>
-          {vehicles.length ? (
-            <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
-              {vehicles.map((v, i) => (
-                <VehicleCard key={v.slug} vehicle={v} whatsapp={settings.whatsapp} tone={toneAt(i)} />
-              ))}
-            </div>
-          ) : (
+        {vehicles.length ? (
+          <CarSlider title="Nos voitures" titleId="titre-voitures">
+            {vehicles.map((v, i) => (
+              <VehicleCard key={v.slug} vehicle={v} whatsapp={settings.whatsapp} tone={toneAt(i)} />
+            ))}
+          </CarSlider>
+        ) : (
+          <div className="container-x">
+            <h2 id="titre-voitures" className="text-4xl font-extrabold sm:text-5xl">
+              Nos voitures
+            </h2>
             <p className="mt-10 rounded-3xl bg-cloud p-8 text-muted">
               Notre flotte est en cours de mise à jour. Contactez-nous sur WhatsApp pour connaître les disponibilités.
             </p>
-          )}
-        </div>
+          </div>
+        )}
       </section>
 
       <HowItWorks />
