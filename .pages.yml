@@ -114,7 +114,3 @@ content:
       - name: instagram
         label: Instagram (sans @)
         type: string
-      - name: heroImage
-        label: Image d'accueil (facultative)
-        description: "Grande photo de fond de l'accueil. Sans image, l'accueil affiche la photo principale de la première voiture disponible."
-        type: image

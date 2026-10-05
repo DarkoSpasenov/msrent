@@ -5,9 +5,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { JsonLd, businessJsonLd } from "@/components/JsonLd";
 import { QuickBook } from "@/components/QuickBook";
 import { VehicleCard } from "@/components/VehicleCard";
-import { VehiclePhoto } from "@/components/VehiclePhoto";
 import { ArrowRightIcon, BoltIcon, CalendarIcon, RouteIcon, ShieldIcon } from "@/components/icons";
-import { photoSrc, photoSrcSet } from "@/lib/photo";
 import { getSettings } from "@/lib/settings";
 import { OG_IMAGE } from "@/lib/site";
 import { toneAt } from "@/lib/tone";
@@ -37,7 +35,6 @@ export default function HomePage() {
   const available = vehicles.filter((v) => v.available);
   const prices = available.map((v) => v.priceDay).filter((p): p is number => p != null);
   const fromPrice = prices.length ? Math.min(...prices) : null;
-  const featured = available.find((v) => v.photos[0]?.transparent) ?? available.find((v) => v.photos[0]);
 
   return (
     <>
@@ -47,8 +44,8 @@ export default function HomePage() {
       <section className="container-x pt-2 sm:pt-4">
         <div className="relative overflow-hidden rounded-[32px] bg-brand sm:rounded-[44px]">
           <div className="pointer-events-none absolute -right-24 -bottom-40 h-[520px] w-[520px] rounded-full bg-white/25" aria-hidden="true" />
-          <div className="relative grid items-center gap-6 px-6 pt-10 pb-28 sm:px-12 sm:pt-16 sm:pb-36 lg:grid-cols-[1.1fr_1fr] lg:gap-4 lg:px-16 lg:pt-20 lg:pb-40">
-            <div>
+          <div className="relative px-6 pt-10 pb-28 sm:px-12 sm:pt-14 sm:pb-32 lg:px-16 lg:pt-16 lg:pb-32">
+            <div className="max-w-3xl">
               <p className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden="true" />
                 Yverdon-les-Bains
@@ -65,29 +62,6 @@ export default function HomePage() {
                 )}
               </div>
             </div>
-
-            {settings.heroImage ? (
-              <img
-                src={photoSrc(settings.heroImage, 1600)}
-                srcSet={photoSrcSet(settings.heroImage)}
-                sizes="(min-width: 1024px) 560px, 100vw"
-                alt=""
-                fetchPriority="high"
-                className="aspect-[4/3] w-full rounded-[28px] object-cover"
-              />
-            ) : (
-              featured && (
-                <Link href={`/voitures/${featured.slug}/`} className="relative block lg:-mr-6" aria-label={`Voir la ${vehicleName(featured)}`}>
-                  <VehiclePhoto
-                    photo={featured.photos[0]}
-                    alt={vehicleName(featured)}
-                    sizes="(min-width: 1024px) 600px, 100vw"
-                    priority
-                    className={`aspect-[16/10] w-full ${featured.photos[0].transparent ? "!p-0" : "rounded-[28px]"}`}
-                  />
-                </Link>
-              )
-            )}
           </div>
         </div>
 

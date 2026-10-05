@@ -110,3 +110,13 @@
     display: none;
   }
 }
+
+/* iOS Safari: date inputs keep an intrinsic width and overflow narrow columns. */
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;
+}
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
