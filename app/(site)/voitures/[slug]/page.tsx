@@ -55,7 +55,7 @@ export default async function VehiclePage({ params }: Props) {
     .slice(0, 3);
 
   const rates = [
-    { label: "Journée", price: v.priceDay, km: v.kmDay },
+    { label: "Jour", price: v.priceDay, km: v.kmDay },
     { label: "Semaine", price: v.priceWeek, km: v.kmWeek },
     { label: "Mois", price: v.priceMonth, km: v.kmMonth },
   ].filter((r) => r.price != null);
@@ -82,14 +82,12 @@ export default async function VehiclePage({ params }: Props) {
           </div>
 
           <div className="min-w-0">
-            <p className="text-sm font-bold tracking-[0.14em] text-muted uppercase">{v.brand}</p>
-            <h1 className="mt-1 text-5xl font-extrabold sm:text-6xl">{name}</h1>
+            <h1 className="text-5xl font-extrabold sm:text-6xl">{name}</h1>
             {!v.available && (
-              <p className="mt-4 inline-flex rounded-full bg-ink px-3.5 py-1.5 text-sm font-bold text-white">Actuellement indisponible</p>
+              <p className="mt-4 inline-flex rounded-full bg-ink px-3.5 py-1.5 text-sm font-bold text-white">Indisponible pour le moment</p>
             )}
             {v.priceDay != null && (
               <p className="mt-5 flex items-baseline gap-2">
-                <span className="text-sm font-semibold text-muted">À partir de</span>
                 <span className="font-display text-5xl font-extrabold">{formatChf(v.priceDay)}</span>
                 <span className="text-lg font-bold">CHF / jour</span>
               </p>
@@ -110,10 +108,10 @@ export default async function VehiclePage({ params }: Props) {
 
             {rates.length > 0 && (
               <section className="mt-6" aria-labelledby="titre-tarifs">
-                <h2 id="titre-tarifs" className="text-lg font-extrabold">
+                <h2 id="titre-tarifs" className="sr-only">
                   Tarifs
                 </h2>
-                <ul className="mt-3 grid grid-cols-3 overflow-hidden rounded-3xl border-2 border-line">
+                <ul className="grid grid-cols-3 overflow-hidden rounded-3xl border-2 border-line">
                   {rates.map((r, i) => (
                     <li key={r.label} className={`p-3 sm:p-5 ${i > 0 ? "border-l-2 border-line" : ""}`}>
                       <span className="block text-xs font-bold tracking-wide text-muted uppercase">{r.label}</span>
@@ -134,8 +132,7 @@ export default async function VehiclePage({ params }: Props) {
 
             {v.description && (
               <div className="mt-8">
-                <h2 className="text-lg font-extrabold">À propos de ce véhicule</h2>
-                <p className="mt-2 leading-relaxed whitespace-pre-line text-muted">{v.description}</p>
+                <p className="leading-relaxed whitespace-pre-line text-muted">{v.description}</p>
               </div>
             )}
           </div>
@@ -144,7 +141,7 @@ export default async function VehiclePage({ params }: Props) {
         {others.length > 0 && (
           <section className="mt-24" aria-labelledby="titre-autres">
             <h2 id="titre-autres" className="text-3xl font-extrabold sm:text-4xl">
-              Autres voitures disponibles
+              Autres voitures
             </h2>
             <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
               {others.map(({ o, tone }) => (

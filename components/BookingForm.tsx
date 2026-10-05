@@ -14,23 +14,18 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
   const [today, setToday] = useState<string>();
   useEffect(() => setToday(isoToday()), []);
 
   const days = from && to ? daysBetween(from, to) : null;
   const invalid = days != null && days < 1;
-  const href = useMemo(() => whatsappUrl(whatsapp, bookingMessage({ vehicle, from, to, name, phone })), [whatsapp, vehicle, from, to, name, phone]);
+  const href = useMemo(() => whatsappUrl(whatsapp, bookingMessage({ vehicle, from, to, name })), [whatsapp, vehicle, from, to, name]);
 
   if (!available) {
     return (
       <div id="reserver" className="rounded-[28px] bg-brand-soft p-5 sm:p-7">
-        <p className="font-display text-xl font-extrabold">Actuellement indisponible</p>
-        <p className="mt-1.5 text-muted">Cette voiture n&apos;est pas disponible pour le moment. Découvrez nos autres véhicules.</p>
-        <button type="button" disabled className="btn mt-5 w-full bg-white text-muted">
-          Réservation désactivée
-        </button>
-        <Link href="/voitures/" className="btn-ink mt-2 w-full">
+        <p className="font-display text-xl font-extrabold">Indisponible pour le moment</p>
+        <Link href="/voitures/" className="btn-ink mt-4 w-full">
           Voir les autres voitures
         </Link>
       </div>
@@ -46,13 +41,12 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
         if (!invalid) window.open(href, "_blank", "noopener");
       }}
     >
-      <h2 className="text-2xl font-extrabold">Demander la disponibilité</h2>
-      <p className="mt-1 text-sm text-muted">Le message WhatsApp est rédigé pour vous : il ne reste qu&apos;à l&apos;envoyer.</p>
+      <h2 className="text-2xl font-extrabold">Réserver</h2>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
         <div>
           <label htmlFor="depart" className="label">
-            Date de départ
+            Départ
           </label>
           <input
             id="depart"
@@ -68,14 +62,14 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
         </div>
         <div>
           <label htmlFor="retour" className="label">
-            Date de retour
+            Retour
           </label>
           <input id="retour" type="date" className="field px-3" min={from || today} value={to} onChange={(e) => setTo(e.target.value)} aria-invalid={invalid} />
         </div>
       </div>
       {invalid ? (
         <p className="mt-2 text-sm font-medium text-alert" role="alert">
-          La date de retour doit être après la date de départ.
+          Le retour doit être après le départ.
         </p>
       ) : (
         days != null && (
@@ -85,19 +79,11 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
         )
       )}
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <div>
-          <label htmlFor="nom" className="label">
-            Nom
-          </label>
-          <input id="nom" type="text" className="field" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Votre nom" />
-        </div>
-        <div>
-          <label htmlFor="tel" className="label">
-            Téléphone <span className="font-normal text-muted">(facultatif)</span>
-          </label>
-          <input id="tel" type="tel" className="field" autoComplete="tel" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="079 123 45 67" />
-        </div>
+      <div className="mt-4">
+        <label htmlFor="nom" className="label">
+          Nom
+        </label>
+        <input id="nom" type="text" className="field" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Votre nom" />
       </div>
 
       <a
@@ -107,9 +93,8 @@ export function BookingForm({ vehicle, whatsapp, available }: { vehicle: string;
         aria-disabled={invalid}
         className={`btn-wa mt-5 w-full min-h-14 text-center text-base leading-tight ${invalid ? "pointer-events-none opacity-50" : ""}`}
       >
-        <WhatsAppIcon width={22} height={22} /> Demander la disponibilité sur WhatsApp
+        <WhatsAppIcon width={22} height={22} /> Envoyer sur WhatsApp
       </a>
-      <p className="mt-3 text-center text-xs text-muted">Sans engagement · Sans paiement en ligne</p>
     </form>
   );
 }

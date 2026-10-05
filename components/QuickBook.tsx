@@ -79,7 +79,7 @@ export function QuickBook({ cars, whatsapp }: { cars: { name: string; priceDay: 
       </a>
       {invalid && (
         <p className="text-sm font-semibold text-alert lg:col-span-4" role="alert">
-          La date de retour doit être après la date de départ.
+          Le retour doit être après le départ.
         </p>
       )}
     </form>

@@ -20,14 +20,9 @@ export default function VehiclesPage() {
   return (
     <section className="pt-8 pb-20 sm:pt-14 sm:pb-28">
       <div className="container-x">
-        <span className="kicker">Location de voiture · Yverdon-les-Bains</span>
-        <h1 className="mt-4 text-5xl font-extrabold sm:text-7xl">Nos voitures</h1>
-        <p className="mt-4 max-w-xl text-lg text-muted">
-          {availableCount > 0
-            ? `${availableCount} voiture${availableCount > 1 ? "s" : ""} disponible${availableCount > 1 ? "s" : ""}. Prix par jour avec kilomètres inclus, tarifs à la semaine et au mois sur chaque fiche.`
-            : "Contactez-nous sur WhatsApp pour connaître les prochaines disponibilités."}
-        </p>
-        <div className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+        <h1 className="text-5xl font-extrabold sm:text-7xl">Nos voitures</h1>
+        {availableCount === 0 && <p className="mt-4 text-lg text-muted">Contactez-nous sur WhatsApp pour les prochaines disponibilités.</p>}
+        <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
           {vehicles.map((v, i) => (
             <VehicleCard key={v.slug} vehicle={v} whatsapp={settings.whatsapp} tone={toneAt(i)} priority={i < 2} />
           ))}

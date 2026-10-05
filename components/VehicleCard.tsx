@@ -9,7 +9,7 @@ import { bookingMessage, whatsappUrl } from "@/lib/whatsapp";
 export function VehicleCard({ vehicle, whatsapp, tone, priority = false }: { vehicle: Vehicle; whatsapp: string; tone: string; priority?: boolean }) {
   const name = vehicleName(vehicle);
   const href = `/voitures/${vehicle.slug}/`;
-  const specs = [`${vehicle.seats} places`, `${vehicle.doors} portes`, vehicle.kmDay != null ? `${vehicle.kmDay} km/jour inclus` : null].filter(Boolean);
+  const specs = [transmissionLabel(vehicle.transmission), `${vehicle.seats} places`, `${vehicle.doors} portes`];
 
   return (
     <article className="group flex flex-col">
@@ -25,7 +25,6 @@ export function VehicleCard({ vehicle, whatsapp, tone, priority = false }: { veh
           priority={priority}
           className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.04] ${vehicle.available ? "" : "opacity-50 grayscale"}`}
         />
-        <span className="absolute top-4 left-4 rounded-full bg-white/85 px-3 py-1 text-xs font-bold backdrop-blur">{transmissionLabel(vehicle.transmission)}</span>
         {vehicle.available ? (
           vehicle.priceDay != null && (
             <span className="absolute top-4 right-4 rounded-2xl bg-ink px-3.5 py-2 text-white">
@@ -34,7 +33,7 @@ export function VehicleCard({ vehicle, whatsapp, tone, priority = false }: { veh
             </span>
           )
         ) : (
-          <span className="absolute top-4 right-4 rounded-full bg-ink px-3 py-1.5 text-xs font-bold text-white">Actuellement indisponible</span>
+          <span className="absolute top-4 right-4 rounded-full bg-ink px-3 py-1.5 text-xs font-bold text-white">Indisponible</span>
         )}
       </Link>
 
@@ -47,7 +46,7 @@ export function VehicleCard({ vehicle, whatsapp, tone, priority = false }: { veh
         <p className="mt-1.5 text-[15px] text-muted">{specs.join(" · ")}</p>
         <div className="mt-5 grid grid-cols-2 gap-2 sm:mt-auto sm:pt-5">
           <Link href={href} className="btn-outline px-3 text-sm">
-            Voir le véhicule <ArrowRightIcon width={16} height={16} />
+            Détails <ArrowRightIcon width={16} height={16} />
           </Link>
           {vehicle.available ? (
             <a

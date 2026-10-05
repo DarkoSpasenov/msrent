@@ -49,9 +49,7 @@ export function Header({ whatsappHref }: { whatsappHref: string }) {
         <div className="flex items-center gap-2">
           <a href={whatsappHref} target="_blank" rel="noopener" className="btn-wa hidden min-h-11 px-4 text-sm sm:inline-flex">
             <WhatsAppIcon width={18} height={18} />
-            <span>
-              <span className="hidden sm:inline">WhatsApp — </span>Réserver
-            </span>
+            Réserver
           </a>
           <button
             type="button"

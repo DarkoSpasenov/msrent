@@ -6,7 +6,7 @@ import { JsonLd, businessJsonLd } from "@/components/JsonLd";
 import { QuickBook } from "@/components/QuickBook";
 import { VehicleCard } from "@/components/VehicleCard";
 import { VehiclePhoto } from "@/components/VehiclePhoto";
-import { ArrowRightIcon, BoltIcon, CalendarIcon, ShieldIcon, TagIcon } from "@/components/icons";
+import { ArrowRightIcon, BoltIcon, CalendarIcon, RouteIcon, ShieldIcon } from "@/components/icons";
 import { photoSrc, photoSrcSet } from "@/lib/photo";
 import { getSettings } from "@/lib/settings";
 import { OG_IMAGE } from "@/lib/site";
@@ -24,10 +24,10 @@ export function generateMetadata(): Metadata {
 }
 
 const WHY = [
-  { icon: CalendarIcon, title: "Location flexible", text: "À la journée, à la semaine ou au mois." },
-  { icon: ShieldIcon, title: "Véhicules entretenus", text: "Des véhicules fiables et régulièrement entretenus." },
-  { icon: TagIcon, title: "Tarifs transparents", text: "Les prix et kilomètres inclus sont affichés clairement." },
-  { icon: BoltIcon, title: "Réservation rapide", text: "Contact direct avec MS Rent via WhatsApp." },
+  { icon: CalendarIcon, title: "Jour, semaine ou mois" },
+  { icon: RouteIcon, title: "Kilomètres inclus" },
+  { icon: ShieldIcon, title: "Voitures entretenues" },
+  { icon: BoltIcon, title: "Sans paiement en ligne" },
 ];
 
 export default function HomePage() {
@@ -51,13 +51,10 @@ export default function HomePage() {
             <div>
               <p className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden="true" />
-                Location de voitures · Yverdon-les-Bains
+                Yverdon-les-Bains
               </p>
               <h1 className="mt-5 text-[44px] leading-[0.98] font-extrabold sm:text-7xl lg:text-[84px]">Louez votre voiture simplement.</h1>
-              <p className="mt-5 max-w-md text-lg leading-relaxed font-medium text-ink/75">
-                Des véhicules fiables à Yverdon-les-Bains, disponibles à la journée, à la semaine ou au mois.
-              </p>
-              <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
                 <Link href="/voitures/" className="btn-ink text-base">
                   Voir les voitures <ArrowRightIcon width={18} height={18} />
                 </Link>
@@ -98,20 +95,27 @@ export default function HomePage() {
         <div className="relative z-10 -mt-20 px-2 sm:-mt-24 sm:px-8 lg:px-12">
           <QuickBook cars={available.map((v) => ({ name: vehicleName(v), priceDay: v.priceDay }))} whatsapp={settings.whatsapp} />
         </div>
+
+        {/* Why MS Rent */}
+        <h2 className="sr-only">Pourquoi MS Rent</h2>
+        <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-5 px-2 sm:px-8 lg:grid-cols-4 lg:px-12">
+          {WHY.map(({ icon: Icon, title }) => (
+            <li key={title} className="flex items-center gap-3 text-[15px] leading-snug font-bold">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand-ink">
+                <Icon width={20} height={20} />
+              </span>
+              {title}
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Vehicles */}
-      <section id="voitures" className="pt-20 pb-6 sm:pt-28" aria-labelledby="titre-voitures">
+      <section id="voitures" className="pt-16 pb-6 sm:pt-24" aria-labelledby="titre-voitures">
         <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <span className="kicker">Nos voitures</span>
-              <h2 id="titre-voitures" className="mt-4 text-4xl font-extrabold sm:text-5xl">
-                Choisissez votre voiture
-              </h2>
-            </div>
-            <p className="max-w-sm text-muted">Prix par jour, kilomètres inclus. Tarifs à la semaine et au mois sur chaque fiche.</p>
-          </div>
+          <h2 id="titre-voitures" className="text-4xl font-extrabold sm:text-5xl">
+            Nos voitures
+          </h2>
           {vehicles.length ? (
             <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
               {vehicles.map((v, i) => (
@@ -127,37 +131,6 @@ export default function HomePage() {
       </section>
 
       <HowItWorks />
-
-      {/* Why MS Rent */}
-      <section className="pb-20 sm:pb-28" aria-labelledby="titre-pourquoi">
-        <div className="container-x">
-          <div className="rounded-[36px] bg-cloud p-7 sm:p-12 lg:p-16">
-            <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-              <div>
-                <span className="kicker bg-white">Pourquoi MS Rent</span>
-                <h2 id="titre-pourquoi" className="mt-4 text-4xl font-extrabold sm:text-5xl">
-                  Simple, clair, sans surprise.
-                </h2>
-                <p className="mt-5 leading-relaxed text-muted">
-                  Pour un besoin personnel ou professionnel, MS Rent vous loue une voiture bien entretenue à un tarif compétitif, avec un contact
-                  direct et rapide.
-                </p>
-              </div>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {WHY.map(({ icon: Icon, title, text }) => (
-                  <li key={title} className="rounded-3xl bg-white p-6">
-                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand">
-                      <Icon />
-                    </span>
-                    <h3 className="mt-5 text-lg font-extrabold">{title}</h3>
-                    <p className="mt-1 leading-relaxed text-muted">{text}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <Contact settings={settings} whatsappHref={wa} />
     </>
