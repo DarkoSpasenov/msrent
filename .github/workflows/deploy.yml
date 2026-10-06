@@ -42,11 +42,24 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v5
 
+      # With a custom domain (CNAME file) the site is served at the root of that domain,
+      # whatever configure-pages reports.
+      - name: Adresse du site
+        id: site
+        run: |
+          if [ -s CNAME ]; then
+            echo "base_path=" >> "$GITHUB_OUTPUT"
+            echo "url=https://$(tr -d '[:space:]' < CNAME)" >> "$GITHUB_OUTPUT"
+          else
+            echo "base_path=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_OUTPUT"
+            echo "url=${{ steps.pages.outputs.base_url }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Construire le site
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          SITE_URL: ${{ steps.pages.outputs.base_url }}
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.site.outputs.base_path }}
+          SITE_URL: ${{ steps.site.outputs.url }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
